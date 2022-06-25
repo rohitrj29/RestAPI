@@ -71,8 +71,32 @@ app.route("/articles/:articleTitle")
     function(err){
       if(!err)
       res.send("successfully added");
+      else
+      res.send(err);
     }
   )
+})
+.patch(function(req,res){
+  Article.update(
+    {title:req.params.articleTitle},
+    {$set: req.body},
+    function(err){
+      if(!err)
+      res.send("successfully added");
+      else
+      res.send(err);
+    }
+  )
+})
+.delete(function(req,res){
+  Article.deleteOne(
+    {title:req.params.articleTitle},
+    function(err){
+    if(!err)
+    res.send("successfully deleted")
+    else
+    res.send(err);
+  });
 });
 app.listen(3000, function() {
   console.log("Server started on port 3000",{useNewUrlParser: true});
